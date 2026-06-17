@@ -239,6 +239,57 @@ to delete the topic and recreate it.
 
 </details>
 
+</details>
+
+
+## Custom Project: Omnichannel Retail Fulfillment Routing
+
+For my custom project, I extended the Kafka consumer to simulate an omnichannel retail fulfillment workflow.
+
+The original project streams sales records from `data/sales.csv` through Kafka. My custom consumer, `kafka_consumer_kiruthikaa.py`, receives those sales messages and enriches them with additional retail fulfillment fields.
+
+The custom consumer adds these fields to the output:
+
+* `customer_name`
+* `customer_email`
+* `order_type`
+* `fulfillment_source_type`
+* `fulfillment_location`
+* `total_sales_amount`
+* `return_eligible`
+* `return_status`
+
+The logic classifies orders into omnichannel scenarios such as:
+
+* `BOPIS_ORDER`
+* `ENDLESS_AISLE_ORDER`
+* `SHIP_TO_CUSTOMER`
+* `POS_STORE_ORDER`
+
+For example, Endless Aisle orders are routed to warehouse fulfillment locations such as `LVL` or `ONT`, while BOPIS orders are routed to store pickup locations such as `LA`, `BUR`, `LV`, or `SF`.
+
+The custom output is written to:
+
+```text
+data/output/omnichannel_fulfillment_kiruthikaa.csv
+```
+
+The custom chart output is written to:
+
+```text
+data/output/omnichannel_sales_chart_kiruthikaa.png
+```
+
+To run my custom consumer:
+
+```shell
+CONSUMER_MAX_MESSAGES=6 uv run python -m streaming.kafka_consumer_kiruthikaa
+```
+
+This modification connects the Kafka streaming workflow to a realistic supply chain and retail operations use case by turning raw sales messages into fulfillment routing intelligence.
+
+
+
 ## Notes
 
 - Use the **UP ARROW** and **DOWN ARROW** in the terminal to scroll through past commands.
