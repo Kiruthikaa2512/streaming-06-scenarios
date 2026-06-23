@@ -239,8 +239,6 @@ to delete the topic and recreate it.
 
 </details>
 
-</details>
-
 
 ## Custom Project: Omnichannel Retail Fulfillment Routing
 
